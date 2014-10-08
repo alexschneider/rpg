@@ -6,12 +6,8 @@ description:
 author: Alex Schneider <aschne19@lion.lmu.edu>
 homepage: https://alexschneider.github.io/rpg
 dependencies:
-    bootjack: any
-    dquery: any
     browser: any
-    http: any
 dev_dependencies:
     unittest: any
 transformers:
-- $dart2js
 
