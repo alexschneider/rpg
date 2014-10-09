@@ -1,20 +1,55 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Diabolic</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    ``
-    <script src="foundation/bower_components/modernizr/modernizr.js"></script>
-</head>
-<body>
+  <!--[if IE 9]> <html class="lt-i e10" lang="en"> <![endif]-->
+  <html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabolical RPG</title>
+    <link rel="stylesheet" href="packages/rpg/foundation/stylesheets/app.css">
+    <script src="packages/rpg/foundation/bower_components/modernizr/modernizr.js"></script>
+  </head>
+  <body>
+  <div class="row">
+    <div class="small-6 small-offset-3 columns end">
+      <h1>LMU Diabolical Game</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 small-offset-3 columns panel radius">
+      <h4 class="text-center">Welcome</h4>
+      <p>
+        Welcome to LMU's Diabolical game. If you know your character's ID,
+        please enter it in the textbox below. Otherwise, click on the 'Create
+        New Character' button.
+      </p>
+    </div>
+  </div>
 
-    <script src="foundation/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="foundation/bower_components/foundation/js/foundation.min.js"></script>
-    <script>
-        $(document).foundation();
-    </script>
-    <script type="application/dart" src="rpg.dart"></script>
-    <script src="packages/browser/dart.js"></script>
-</body>
+  <form>
+    <div class="extra-top-margin-row">
+      <div class="small-3 columns small-offset-3">
+        <div class="row collapse tiny">
+          <div class="small-3 columns">
+            <a href="#" class="button prefix round">Go</a>
+          </div>
+          <div class="small-9 columns">
+            <input type="number" class="postfix-radius"
+                   placeholder="Character ID">
+          </div>
+        </div>
+      </div>
+      <div class="small-3 columns end">
+        <a href="#" class="button round tiny right">Create New Character</a>
+      </div>
+    </div>
+  </form>
+
+  <script src="packages/rpg/foundation/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="packages/rpg/foundation/bower_components/foundation/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <script type="application/dart" src="rpg.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+  </body>
 </html>
