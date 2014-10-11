@@ -98,10 +98,11 @@ class DiabolicalApi {
                           responseType: 'json',
                           requestHeaders: _diabolicalJsonHeaders)
           .then((HttpRequest res) {
-            if (res.status != 201) {
+            if (res.status != 200) {
+              print(res.status);
               throw new DiabolicalApiException('Character not created', res);
             }
-            return res.getResponseHeader('Location').split('/').last;
+            return new DiabolicalCharacter._fromMap(res.response);
   });
 }
 

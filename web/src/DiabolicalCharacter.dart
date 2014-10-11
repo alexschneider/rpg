@@ -3,15 +3,15 @@ part of diabolical;
 class DiabolicalCharacter {
   int _id;
   int level, money;
-  String classType, gender, name;
+  String classType, _gender, name;
 
   DiabolicalCharacter(this.classType, Gender gender, this.level, this.money, this.name)
     : this.gender     = gender._gender;
 
   DiabolicalCharacter._fromMap(Map characterMap)
-    : id         = characterMap['id'],
+    : _id         = characterMap['id'],
       classType  = characterMap['classType'],
-      gender     = characterMap['gender'],
+      _gender     = characterMap['gender'],
       level      = characterMap['level'],
       money      = characterMap['money'],
       name       = characterMap['name'];
@@ -19,7 +19,7 @@ class DiabolicalCharacter {
   Map<String, dynamic> toMap() {
     var characterMap = {
         'classType':  this.classType,
-        'gender':     this.gender,
+        'gender':     this._gender,
         'level':      this.level,
         'money':      this.money,
         'name':       this.name
@@ -33,6 +33,8 @@ class DiabolicalCharacter {
   }
 
   get id => _id;
+  get gender => _gender;
+  set gender (Gender g) => _gender = g._gender;
 }
 
 class Gender {
