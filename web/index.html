@@ -28,7 +28,7 @@
   <form>
     <div class="extra-top-margin-row">
       <div class="small-3 columns small-offset-3">
-        <div class="row collapse tiny">
+        <div class="row collapse">
           <div class="small-3 columns">
             <a href="#"
                class="button prefix round">Go</a>
@@ -40,9 +40,24 @@
         </div>
       </div>
       <div class="small-3 columns end">
-        <a href="#"
-           class="button round tiny expand"
-           data-reveal-id="create-new-character">Create New Character</a>
+        <a href="#" class="button round tiny expand"
+           data-reveal-id="create-new-character">
+          Create New Character
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-3 columns small-offset-3">
+        <a href="#" class="button round tiny expand disabled">
+           <!--data-reveal-id="list-characters">-->
+          List Saved Characters
+        </a>
+      </div>
+      <div class="small-3 columns end">
+        <a href="#" class="button round tiny expand"
+           data-reveal-id="list-characters">
+          List All Characters
+        </a>
       </div>
     </div>
   </form>
@@ -135,6 +150,28 @@
       </div>
     </form>
     <a class="close-reveal-modal fi-x-circle"></a>
+  </div>
+
+  <div id="list-characters" class="reveal-modal" data-reveal>
+    <!--
+      This modal will need to be populated by dart, since the content is
+      dynamic - that is, it only lives on the API servers. For reference, it
+      looks something like this (had we been using the mustache templating
+      engine:
+
+      {{#characters}}
+      <div class="row">
+        {{#character attributes}}
+        <div class="small-2 columns">
+          {{character info}}
+        </div>
+        {{/character attributes}}
+        </div class="small-2 columns">
+          <a class="button" href="#">Use character</a>
+        </div>
+      </div>
+      {{/characters}}
+    -->
   </div>
 
   <script src="packages/rpg/foundation/bower_components/jquery/dist/jquery.min.js"></script>

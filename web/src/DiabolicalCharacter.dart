@@ -6,7 +6,7 @@ class DiabolicalCharacter {
   String classType, _gender, name;
 
   DiabolicalCharacter(this.classType, Gender gender, this.level, this.money, this.name)
-    : this.gender     = gender._gender;
+    : this._gender     = gender._gender;
 
   DiabolicalCharacter._fromMap(Map characterMap)
     : _id         = characterMap['id'],

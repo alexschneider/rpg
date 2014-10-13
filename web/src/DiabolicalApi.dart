@@ -45,7 +45,7 @@ class DiabolicalApi {
           if (res.status != 201) {
             throw new DiabolicalApiException('Character not created', res);
           }
-          int id = res.getResponseHeader('Location').split('/').last;
+          int id = int.parse(res.getResponseHeader('Location').split('/').last);
           c._id = id;
           return id;
     });
@@ -91,7 +91,8 @@ class DiabolicalApi {
             return new DiabolicalItem._fromMap(res.response);
       });
 
-  /// The character returned by this future must be created by using createCharacter
+  /// The character returned by this future must later be created by using
+  /// createCharacter
   static Future<DiabolicalCharacter> generateRandomCharacter() =>
       HttpRequest.request('http://lmu-diabolical.appspot.com/characters/spawn',
                           method: 'get',

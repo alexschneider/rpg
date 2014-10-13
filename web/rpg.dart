@@ -1,12 +1,11 @@
 import 'dart:html';
-import 'package:dquery/dquery.dart';
 import 'src/Diabolical.dart';
 
 void initializeListeners() {
   querySelector('#random-character').onClick.listen(generateRandomCharacter);
 }
 
-updateFieldsFromCharacter(DiabolicalCharacter char, String idPrefix) {
+void updateFieldsFromCharacter(DiabolicalCharacter char, String idPrefix) {
   (querySelector('#${idPrefix}-character-name')
       as InputElement).value = char.name;
   (querySelector('#${idPrefix}-character-gender-${char.gender.toLowerCase()}')
@@ -22,6 +21,16 @@ updateFieldsFromCharacter(DiabolicalCharacter char, String idPrefix) {
 void generateRandomCharacter(_) {
   DiabolicalApi.generateRandomCharacter().then((DiabolicalCharacter char) =>
       updateFieldsFromCharacter(char, 'create'));
+}
+
+void generateModalFromCharacterList(List<DiabolicalCharacter> characters) {
+  characters.forEach((DiabolicalCharacter character) {
+    generateRowFromCharacter(character);
+  });
+}
+
+void generateRowFromCharacter(DiabolicalCharacter character) {
+
 }
 
 void main() {
