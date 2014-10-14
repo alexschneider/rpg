@@ -17,10 +17,9 @@ class DiabolicalApi {
               throw new DiabolicalApiException('API Issue', res);
             }
             List<Map<String, dynamic>> characters = res.response;
-            return characters.map((Map<String, dynamic> character) {
-              new DiabolicalCharacter._fromMap(character);
+            return characters.map((Map<String, dynamic> character) =>
+              new DiabolicalCharacter._fromMap(character));
       });
-    });
 
   static Future<DiabolicalCharacter> getCharacter(int id) =>
     HttpRequest.request('http://lmu-diabolical.appspot.com/characters/$id',

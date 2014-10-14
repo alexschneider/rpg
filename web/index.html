@@ -7,6 +7,8 @@
     <title>Diabolical RPG</title>
     <link rel="stylesheet" href="packages/rpg/foundation/stylesheets/app.css">
     <script src="packages/rpg/foundation/bower_components/modernizr/modernizr.js"></script>
+    <script type="application/dart" src="rpg.dart"></script>
+    <script src="packages/browser/dart.js"></script>
   </head>
   <body>
   <div class="row">
@@ -40,7 +42,7 @@
         </div>
       </div>
       <div class="small-3 columns end">
-        <a href="#" class="button round tiny expand"
+        <a id="" class="button round tiny expand"
            data-reveal-id="create-new-character">
           Create New Character
         </a>
@@ -48,13 +50,13 @@
     </div>
     <div class="row">
       <div class="small-3 columns small-offset-3">
-        <a href="#" class="button round tiny expand disabled">
-           <!--data-reveal-id="list-characters">-->
+        <a id='list-saved-characters' class="button round tiny expand disabled"
+           data-reveal-id="list-characters">
           List Saved Characters
         </a>
       </div>
       <div class="small-3 columns end">
-        <a href="#" class="button round tiny expand"
+        <a id='list-all-characters' class="button round tiny expand"
            data-reveal-id="list-characters">
           List All Characters
         </a>
@@ -171,6 +173,7 @@
         </div>
       </div>
       {{/characters}}
+      <a class="close-reveal-modal fi-x-circle"></a>
     -->
   </div>
 
@@ -179,7 +182,5 @@
   <script>
     $(document).foundation();
   </script>
-  <script type="application/dart" src="rpg.dart"></script>
-  <script src="packages/browser/dart.js"></script>
   </body>
 </html>
