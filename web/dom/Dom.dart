@@ -2,6 +2,7 @@ library dom;
 
 import 'dart:html';
 import 'dart:async';
+import 'dart:js';
 import '../api/Diabolical.dart';
 
 part 'ButtonListeners.dart';

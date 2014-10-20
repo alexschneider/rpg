@@ -1,15 +1,15 @@
 part of dom;
 
-void updateFieldsFromCharacter(DiabolicalCharacter char, String idPrefix) {
-  (querySelector('#${idPrefix}-character-name')
+void updateFieldsFromCharacter(DiabolicalCharacter char) {
+  (querySelector('#character-name')
       as InputElement).value = char.name;
-  (querySelector('#${idPrefix}-character-gender-${char.gender.toLowerCase()}')
+  (querySelector('#character-gender-${char.gender.toLowerCase()}')
       as RadioButtonInputElement).checked = true;
-  (querySelector('#${idPrefix}-character-class')
+  (querySelector('#character-class')
       as InputElement).value = char.classType;
-  (querySelector('#${idPrefix}-character-level')
+  (querySelector('#character-level')
       as InputElement).value = char.level.toString();
-  (querySelector('#${idPrefix}-character-money')
+  (querySelector('#character-money')
       as InputElement).value = char.money.toString();
 }
 
@@ -17,17 +17,14 @@ void generateModalFromCharacters(Iterable<DiabolicalCharacter> characters) {
   var listCharacterModal = querySelector('#list-characters') as DivElement;
   var rows = characters.map(generateRowFromCharacter);
   var closeButton = new AnchorElement()
-      ..classes.add('close-reveal-modal fi-x-circle')
-      ..onClick.listen((_) => handleCloseModal(listCharacterModal));
+      ..classes.add('close-reveal-modal fi-x-circle');
   listCharacterModal.children..addAll(rows)..add(closeButton);
+
+  // We need to make sure foundation knows about our newly generated HTML
+  reinitializeFoundation();
 }
 
 DivElement generateRowFromCharacter(DiabolicalCharacter character) {
-  var characterButton = new AnchorElement()
-    ..classes.addAll(['button', 'small', 'expand', 'round'])
-    ..appendText('Use character')
-    ..onClick.listen((_) => handleSelectCharacter(character));
-  var characterButtonColumn = generateColumn()..children.add(characterButton);
   var attributes = [
     character.name,
     character.gender,
@@ -36,11 +33,42 @@ DivElement generateRowFromCharacter(DiabolicalCharacter character) {
     character.money
   ];
   var row = new DivElement()
-    ..classes.add('row')
-    ..children.addAll(attributes.map(generateColumnFromAttribute))
-    ..children.add(characterButtonColumn);
+      ..classes.add('row')
+      ..children.addAll(attributes.map(generateColumnFromAttribute))
+      ..id = 'row-${character.id}';
+
+  row.children.add(generateCharacterDropDown(character));
 
   return row;
+}
+
+DivElement generateCharacterDropDown(DiabolicalCharacter character) {
+  var useCharacter = new AnchorElement()
+      ..appendText('Use character');
+
+  var modifyCharacter = new AnchorElement()
+      ..appendText('Modify character');
+      //..onClick.listen((_) => handleModifyCharacter(character))
+      //..onClick.listen((_) => handleCloseModal('#list-characters'));
+
+  var deleteCharacter = new AnchorElement()
+      ..appendText('Delete character')
+      ..onClick.listen((_) => handleDeleteCharacter(character));
+
+  var characterLIs = [useCharacter, modifyCharacter, deleteCharacter]
+      .map((ButtonElement b) => new LIElement()..children.add(b));
+
+  var dropDown = new UListElement()
+      ..children.addAll(characterLIs)
+      ..classes.addAll(['f-dropdown'])
+      ..dataset['dropdown-content'] = ''
+      ..id = 'dropdown-${character.id}';
+
+  var dropDownButton = new ButtonElement()
+      ..classes.addAll(['small', 'expand', 'round', 'dropdown'])
+      ..dataset['dropdown'] = 'dropdown-${character.id}'
+      ..appendText('Actions');
+  return generateColumn()..children.addAll([dropDownButton, dropDown]);
 }
 
 DivElement generateColumnFromAttribute(Object attribute) =>
@@ -48,3 +76,8 @@ DivElement generateColumnFromAttribute(Object attribute) =>
 
 DivElement generateColumn() =>
     new DivElement()..classes.addAll(['small-2', 'columns']);
+
+void setCreateModifyCharacterText(String headerText, String buttonText) {
+  querySelector('#create-modify-header').text = headerText;
+  querySelector('#create-modify-button').text = buttonText;
+}

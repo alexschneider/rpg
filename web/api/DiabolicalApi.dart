@@ -99,7 +99,6 @@ class DiabolicalApi {
                           requestHeaders: _diabolicalJsonHeaders)
           .then((HttpRequest res) {
             if (res.status != 200) {
-              print(res.status);
               throw new DiabolicalApiException('Character not created', res);
             }
             return new DiabolicalCharacter._fromMap(res.response);

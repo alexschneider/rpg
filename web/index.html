@@ -27,130 +27,121 @@
     </div>
   </div>
 
-  <form>
-    <div class="extra-top-margin-row">
-      <div class="small-3 columns small-offset-3">
-        <div class="row collapse">
-          <div class="small-3 columns">
-            <a href="#"
-               class="button prefix round">Go</a>
-          </div>
-          <div class="small-9 columns">
-            <input type="number" class="postfix-radius"
-                   placeholder="Character ID">
-          </div>
+  <div class="extra-top-margin-row">
+    <div class="small-3 columns small-offset-3">
+      <div class="row collapse">
+        <div class="small-3 columns">
+          <button class="button prefix round">Go</button>
+        </div>
+        <div class="small-9 columns">
+          <input type="number" class="postfix-radius"
+                 placeholder="Character ID">
         </div>
       </div>
-      <div class="small-3 columns end">
-        <a id="" class="button round tiny expand"
-           data-reveal-id="create-new-character">
-          Create New Character
-        </a>
-      </div>
     </div>
+    <div class="small-3 columns end">
+      <button id="create-character" class="button round tiny expand">
+        Create New Character
+      </button>
+    </div>
+  </div>
     <div class="row">
       <div class="small-3 columns small-offset-3">
-        <a id='list-saved-characters' class="button round tiny expand disabled"
-           data-reveal-id="list-characters">
+        <button id='list-saved-characters' class="button round tiny expand disabled">
           List Saved Characters
-        </a>
+        </button>
       </div>
       <div class="small-3 columns end">
-        <a id='list-all-characters' class="button round tiny expand"
-           data-reveal-id="list-characters">
+        <button id='list-all-characters' class="button round tiny expand">
           List All Characters
-        </a>
+        </button>
       </div>
     </div>
-  </form>
 
-  <div id="create-new-character" class="reveal-modal" data-reveal>
-    <h2 class="text-center">Create a new character</h2>
-    <form>
-      <div class="row">
-        <div class="small-12 small-centered columns">
-          <div class="row">
-            <div class="small-3 small-offset-1 columns">
-              <label for="create-character-name" class="right inline">
-                Character Name
-              </label>
-            </div>
-            <div class="small-6 columns end">
-              <input type="text" id="create-character-name"
-                     placeholder="Enter character name">
-            </div>
+  <div id="create-modify-character" class="reveal-modal" data-reveal>
+    <h2 id='create-modify-header' class="text-center"></h2>
+    <div class="row">
+      <div class="small-12 small-centered columns">
+        <div class="row">
+          <div class="small-3 small-offset-1 columns">
+            <label for="character-name" class="right inline">
+              Character Name
+            </label>
           </div>
-          <div class="row">
-            <div class="small-3 small-offset-1 columns">
-              <label for="create-character-gender" class="right">
-                Character Gender
-              </label>
-            </div>
-            <div class="small-6 columns end">
-              <input type="radio" name="create-character-gender" value="Male"
-                     id="create-character-gender-male">
-              <label for="create-character-gender-male">Male</label>
-              <input type="radio" name="create-character-gender" value="Female"
-                     id="create-character-gender-female">
-              <label for="create-character-gender-female">Female</label>
-            </div>
+          <div class="small-6 columns end">
+            <input type="text" id="character-name"
+                   placeholder="Enter character name">
           </div>
-          <div class="row">
-            <div class="small-3 small-offset-1 columns">
-              <label for="create-character-class" class="right inline">
-                Character Class
-              </label>
-            </div>
-            <div class="small-6 columns end">
-              <input type="text" id="create-character-class"
-                     placeholder="Enter character class">
-            </div>
+        </div>
+        <div class="row">
+          <div class="small-3 small-offset-1 columns">
+            <label for="character-gender" class="right">
+              Character Gender
+            </label>
           </div>
-          <div class="row">
-            <div class="small-3 small-offset-1 columns">
-              <label for="create-character-level" class="right inline">
-                Character Level
-              </label>
-            </div>
-            <div class="small-6 columns end">
-              <input type="number" id="create-character-level"
-                     placeholder="Enter character level">
-            </div>
+          <div class="small-6 columns end">
+            <input type="radio" name="character-gender" value="Male"
+                   id="character-gender-male">
+            <label for="character-gender-male">Male</label>
+            <input type="radio" name="character-gender" value="Female"
+                   id="character-gender-female">
+            <label for="character-gender-female">Female</label>
           </div>
-          <div class="row">
-            <div class="small-3 small-offset-1 columns">
-              <label for="create-character-money" class="right inline">
-                Character Money
-              </label>
-            </div>
-            <div class="small-6 columns end">
-              <div class="row collapse">
-                <div class="small-1 columns">
-                  <span class="prefix"><i class="fi-dollar"></i></span>
-                </div>
-                <div class="small-11 columns">
-                  <input type="number" id="create-character-money"
-                         placeholder="Enter character money">
-                </div>
+        </div>
+        <div class="row">
+          <div class="small-3 small-offset-1 columns">
+            <label for="character-class" class="right inline">
+              Character Class
+            </label>
+          </div>
+          <div class="small-6 columns end">
+            <input type="text" id="character-class"
+                   placeholder="Enter character class">
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-3 small-offset-1 columns">
+            <label for="character-level" class="right inline">
+              Character Level
+            </label>
+          </div>
+          <div class="small-6 columns end">
+            <input type="number" id="character-level"
+                   placeholder="Enter character level">
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-3 small-offset-1 columns">
+            <label for="character-money" class="right inline">
+              Character Money
+            </label>
+          </div>
+          <div class="small-6 columns end">
+            <div class="row collapse">
+              <div class="small-1 columns">
+                <span class="prefix"><i class="fi-dollar"></i></span>
+              </div>
+              <div class="small-11 columns">
+                <input type="number" id="character-money"
+                       placeholder="Enter character money">
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="small-offset-2 small-4 columns">
-              <a id="random-character"
-                 class="button small expand round">
-                Generate Random
-              </a>
-            </div>
-            <div class="small-4 columns left">
-              <a class="button small expand round">
-                Create
-              </a>
-            </div>
+        </div>
+        <div class="row">
+          <div class="small-offset-2 small-4 columns">
+            <button id="random-character"
+               class="button small expand round">
+              Generate Random
+            </button>
+          </div>
+          <div class="small-4 columns left">
+            <button id="create-modify-button" class="button small expand round">
+            </button>
           </div>
         </div>
       </div>
-    </form>
+    </div>
     <a class="close-reveal-modal fi-x-circle"></a>
   </div>
 
@@ -169,7 +160,7 @@
         </div>
         {{/character attributes}}
         </div class="small-2 columns">
-          <a class="button" href="#">Use character</a>
+          <button class="button" href="#">Use character</button>
         </div>
       </div>
       {{/characters}}
