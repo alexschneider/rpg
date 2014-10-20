@@ -13,8 +13,9 @@ void initializeListeners() {
 }
 
 void handleModifyCharacter(DiabolicalCharacter c) {
+  clearAllTemp();
   updateFieldsFromCharacter(c);
-  setCreateModifyCharacterText('Modify your character', 'Modify');
+  setCreateModifyCharacterText('Modify your character', 'Modify', handleModify);
 }
 
 void handleListAll(_) {
@@ -31,11 +32,60 @@ void handleRandomCharacter(_) {
 }
 
 void handleCreateCharacter(_) {
+  clearAllTemp();
+  updateFieldsFromCharacter(new DiabolicalCharacter.empty());
   setCreateModifyCharacterText('Create your character', 'Create', handleCreate);
 }
 
+void handleModify(_) {
+  var el = getCharacterElements();
+  if (validateCharacterForm(el)) {
+
+  }
+}
+
 void handleCreate(_) {
-  // TODO
+  var el = getCharacterElements();
+  if (validateCharacterForm(el)) {
+    DiabolicalCharacter dbc = new DiabolicalCharacter(
+      el['class'].value,
+      el['gender-male'].checked ? new Gender.male() : new Gender.female(),
+      int.parse(el['level'].value),
+      int.parse(el['money'].value),
+      el['name'].value
+    );
+    DiabolicalApi.createCharacter(dbc).then((int characterId) {
+      querySelector('#create-modify-character')
+          .insertAdjacentElement('beforeend', generateAlert('success', 'Character created'));
+      reinitializeFoundation();
+    });
+  }
+}
+
+bool validateCharacterForm(Map<String, InputElement> el) {
+  clearAllTemp();
+  var valid = true;
+  var radio = 0;
+  el.forEach((String key, InputElement val) {
+    var elementValid = true;
+    if (val.type != 'radio' && val.value == '') {
+      elementValid = false;
+    } else if (val.type == 'radio' && !val.checked) {
+      radio++;
+      if(radio == 2) {
+        elementValid = false;
+      }
+    }
+    if (!elementValid) {
+      val.classes.add('error');
+      val.parent.children.add(new Element.tag('small')
+          ..classes.addAll(['error', 'temp'])
+          ..text = 'Invalid entry');
+      valid = false;
+    }
+  });
+
+  return valid;
 }
 
 void handleDeleteCharacter(DiabolicalCharacter c) {

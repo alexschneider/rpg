@@ -8,6 +8,8 @@ class DiabolicalCharacter {
   DiabolicalCharacter(this.classType, Gender gender, this.level, this.money, this.name)
     : this._gender     = gender._gender;
 
+  DiabolicalCharacter.empty();
+
   DiabolicalCharacter._fromMap(Map characterMap)
     : _id         = characterMap['id'],
       classType  = characterMap['classType'],

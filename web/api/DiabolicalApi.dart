@@ -4,7 +4,8 @@ part of diabolical;
 class DiabolicalApi {
 
   static const _diabolicalJsonHeaders = const {
-    'Accept' : 'application/json, text/javascript, */*; q=0.01'
+    'Accept' : 'application/json, text/javascript, */*; q=0.01',
+    'Content-Type': 'application/json'
   };
 
   static Future<Iterable<DiabolicalCharacter>> getAllCharacters() =>
@@ -38,6 +39,7 @@ class DiabolicalApi {
     HttpRequest.request('http://lmu-diabolical.appspot.com/characters',
                         method: 'POST',
                         sendData: JSON.encode(c.toMap()),
+                        mimeType: 'json',
                         responseType: 'json',
                         requestHeaders: _diabolicalJsonHeaders)
         .then((HttpRequest res) {

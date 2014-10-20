@@ -1,17 +1,26 @@
 part of dom;
 
 void updateFieldsFromCharacter(DiabolicalCharacter char) {
-  (querySelector('#character-name')
-      as InputElement).value = char.name;
-  (querySelector('#character-gender-${char.gender.toLowerCase()}')
-      as RadioButtonInputElement).checked = true;
-  (querySelector('#character-class')
-      as InputElement).value = char.classType;
-  (querySelector('#character-level')
-      as InputElement).value = char.level.toString();
-  (querySelector('#character-money')
-      as InputElement).value = char.money.toString();
+  var el = getCharacterElements();
+
+  el['name'].value = char.name;
+  if (char.gender != null) {
+    var gender = char.gender.toLowerCase();
+    el['gender-$gender'].checked = true;
+  }
+  el['class'].value = char.classType;
+  el['level'].value = char.level.toString();
+  el['money'].value = char.money.toString();
 }
+
+Map<String, InputElement> getCharacterElements() => {
+    'name': querySelector('#character-name'),
+    'gender-male': querySelector('#character-gender-male'),
+    'gender-female': querySelector('#character-gender-female'),
+    'class': querySelector('#character-class'),
+    'level': querySelector('#character-level'),
+    'money': querySelector('#character-money')
+};
 
 void generateModalFromCharacters(Iterable<DiabolicalCharacter> characters) {
   var listCharacterModal = querySelector('#list-characters') as DivElement;
@@ -88,3 +97,21 @@ void setCreateModifyCharacterText(String headerText, String buttonText,
       ..onClick.listen(buttonCallback);
 
 }
+
+/// [reinitializeFoundation] must be called after inserting this element.
+DivElement generateAlert(String cssClass, String text) {
+  var alertDiv = new DivElement()
+      ..classes.addAll(['alert-box', cssClass, 'temp'])
+      ..dataset['alert'] = ''
+      ..text = text;
+
+  var closeButton = new ButtonElement()
+      ..classes.addAll(['close'])
+      ..setInnerHtml("&times;");
+
+  alertDiv.append(closeButton);
+
+  return alertDiv;
+}
+
+void clearAllTemp() => querySelectorAll('.temp').forEach((Element e) => e.remove());
