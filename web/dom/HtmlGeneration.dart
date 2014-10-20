@@ -55,10 +55,15 @@ DivElement generateCharacterDropDown(DiabolicalCharacter character) {
   var useCharacter = new AnchorElement()
       ..appendText('Use character');
 
+  var characterSaved = savedCharacterIds().contains(character.id);
+  var saveUnsaveCharacter = new AnchorElement()
+      ..appendText(characterSaved ? 'Unsave character' : 'Save character')
+      ..onClick.listen((_) => toggleSavedCharacter(character))
+      ..onClick.listen((_) => querySelector('.toggle-topbar').click());
+
   var modifyCharacter = new AnchorElement()
-      ..appendText('Modify character');
-      //..onClick.listen((_) => handleModifyCharacter(character))
-      //..onClick.listen((_) => handleCloseModal('#list-characters'));
+      ..appendText('Modify character')
+      ..onClick.listen((_) => handleModifyCharacter(character));
 
   var deleteCharacter = new AnchorElement()
       ..appendText('Delete character')
@@ -67,7 +72,7 @@ DivElement generateCharacterDropDown(DiabolicalCharacter character) {
   deleteCharacter.onClick.listen((_) =>
       deleteCharacter.parent.parent.classes.remove('open'));
 
-  var characterLIs = [useCharacter, modifyCharacter, deleteCharacter]
+  var characterLIs = [useCharacter, saveUnsaveCharacter, modifyCharacter, deleteCharacter]
       .map((ButtonElement b) => new LIElement()..children.add(b));
 
   var dropDown = new UListElement()
