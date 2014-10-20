@@ -55,6 +55,9 @@ DivElement generateCharacterDropDown(DiabolicalCharacter character) {
       ..appendText('Delete character')
       ..onClick.listen((_) => handleDeleteCharacter(character));
 
+  deleteCharacter.onClick.listen((_) =>
+      deleteCharacter.parent.parent.classes.remove('open'));
+
   var characterLIs = [useCharacter, modifyCharacter, deleteCharacter]
       .map((ButtonElement b) => new LIElement()..children.add(b));
 
@@ -77,7 +80,11 @@ DivElement generateColumnFromAttribute(Object attribute) =>
 DivElement generateColumn() =>
     new DivElement()..classes.addAll(['small-2', 'columns']);
 
-void setCreateModifyCharacterText(String headerText, String buttonText) {
+void setCreateModifyCharacterText(String headerText, String buttonText,
+                                  Function buttonCallback) {
   querySelector('#create-modify-header').text = headerText;
-  querySelector('#create-modify-button').text = buttonText;
+  querySelector('#create-modify-button')
+      ..text = buttonText
+      ..onClick.listen(buttonCallback);
+
 }

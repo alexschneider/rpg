@@ -31,7 +31,11 @@ void handleRandomCharacter(_) {
 }
 
 void handleCreateCharacter(_) {
-  setCreateModifyCharacterText('Create your character', 'Create');
+  setCreateModifyCharacterText('Create your character', 'Create', handleCreate);
+}
+
+void handleCreate(_) {
+  // TODO
 }
 
 void handleDeleteCharacter(DiabolicalCharacter c) {
