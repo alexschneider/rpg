@@ -54,8 +54,9 @@ class DiabolicalApi {
   /// Returns a future for null
   static Future updateCharacter(DiabolicalCharacter c) =>
     HttpRequest.request('http://lmu-diabolical.appspot.com/characters/${c.id}',
-                        method: 'POST',
+                        method: 'PUT',
                         sendData: JSON.encode(c.toMap()),
+                        mimeType: 'json',
                         responseType: 'json',
                         requestHeaders: _diabolicalJsonHeaders)
         .then((HttpRequest res) {
@@ -80,9 +81,9 @@ class DiabolicalApi {
   static Future deleteCharacter(DiabolicalCharacter c) => deleteCharacterFromId(c.id);
 
   static Future<DiabolicalItem> createRandomItem(int level, String slot) =>
-      HttpRequest.request('http://lmu-diabolical.appspot.com/items/spawn',
+      HttpRequest.request('http://lmu-diabolical.appspot.com/items/spawn' +
+                          '?level=$level&slot=$slot',
                           method: 'GET',
-                          sendData: JSON.encode({level: level, slot: slot}),
                           responseType: 'json',
                           requestHeaders: _diabolicalJsonHeaders)
           .then((HttpRequest res) {

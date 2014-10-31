@@ -23,100 +23,130 @@ Map<String, InputElement> getCharacterElements() => {
 };
 
 void generateModalFromCharacters(Iterable<DiabolicalCharacter> characters) {
-  var listCharacterModal = querySelector('#list-characters') as DivElement;
-  var rows = characters.map(generateRowFromCharacter);
-  var closeButton = new AnchorElement()
-      ..classes.add('close-reveal-modal fi-x-circle');
-  listCharacterModal.children..addAll(rows)..add(closeButton);
+  var characterListImport = (querySelector('#list-characters-page') as
+                                LinkElement).import;
+  var listTemplate = characterListImport.querySelector('#character-table');
+  var characterTable = document.importNode(listTemplate.content, true);
 
-  // We need to make sure foundation knows about our newly generated HTML
-  reinitializeFoundation();
+  var rows = characters.map((e) => generateRowFromCharacter(e, characterListImport));
+
+  characterTable.querySelector('tbody').children.addAll(rows);
+  characterTable.querySelectorAll('.sort').forEach((Element e) =>
+      e.onClick.listen(handleSort));
+  querySelector('#list-characters').children
+                                    ..clear()
+                                    ..addAll(characterTable.children);
+
 }
 
-DivElement generateRowFromCharacter(DiabolicalCharacter character) {
-  var attributes = [
-    character.name,
-    character.gender,
-    character.classType,
-    character.level,
-    character.money
-  ];
-  var row = new DivElement()
-      ..classes.add('row')
-      ..children.addAll(attributes.map(generateColumnFromAttribute))
-      ..id = 'row-${character.id}';
-
-  row.children.add(generateCharacterDropDown(character));
+TableRowElement generateRowFromCharacter(DiabolicalCharacter character,
+                                         Document import) {
+  var idBase = '.list-character';
+  var rowTemplate = import.querySelector('$idBase-row');
+  TableRowElement row = document.importNode(rowTemplate.content.querySelector
+                                        ('tr'), true);
+  row.querySelector('$idBase-name').text = character.name;
+  row.querySelector('.gender-symbol-${character.gender.toLowerCase()}')
+      ..classes.remove('hide');
+  row.querySelector('$idBase-classtype').text = character.classType;
+  row.querySelector('$idBase-level').text = character.level.toString();
+  row.querySelector('$idBase-money').text = character.money.toString();
+  row.querySelector('.use').onClick.listen((_) => handleUseCharacter(character));
+  row.querySelector('.modify').onClick.listen((_) => handleModifyCharacter(character));
+  var delete = row.querySelector('.delete');
+  delete.onClick.listen((_) => handleDeleteCharacter(character, delete, row));
 
   return row;
 }
 
-DivElement generateCharacterDropDown(DiabolicalCharacter character) {
-  var useCharacter = new AnchorElement()
-      ..appendText('Use character');
+void generateCharacterModal([DiabolicalCharacter fromCharacter]) {
+  var characterImport = (querySelector('#create-edit-character-page')
+      as LinkElement).import;
+  var characterTemplate = characterImport.querySelector('#create-edit-character');
+  DocumentFragment characterForm = document.importNode(characterTemplate.content, true);
+  var headerText, buttonText, callback;
+  if (fromCharacter == null) { // We are creating a new character
+    headerText = "Create a new character";
+    buttonText = "Create";
+    callback = handleCreate;
+  } else { // we are modifying an existing character
+    headerText = "Modify an existing character";
+    buttonText = "Modify";
+    callback = (Event e) => handleModify(e, fromCharacter);
+  }
 
-  var characterSaved = savedCharacterIds().contains(character.id);
-  var saveUnsaveCharacter = new AnchorElement()
-      ..appendText(characterSaved ? 'Unsave character' : 'Save character')
-      ..onClick.listen((_) => toggleSavedCharacter(character))
-      ..onClick.listen((_) => querySelector('.toggle-topbar').click());
+  characterForm
+      ..querySelector('#create-modify-header').text = headerText
+      ..querySelector('#create-modify-button').text = buttonText
+      // Hack to make sure that the validation occurs before we check for it.
+      ..querySelector('#create-modify-button').onClick.listen((e) =>
+          new Future(() => callback(e)))
+      ..querySelector('form').onSubmit.listen((e) => e.preventDefault())
+      ..querySelector('#random-character').onClick.listen(handleRandomCharacter);
 
-  var modifyCharacter = new AnchorElement()
-      ..appendText('Modify character')
-      ..onClick.listen((_) => handleModifyCharacter(character));
+  querySelector('#create-modify-character')
+      .children..clear()..addAll(characterForm.children);
+  if (fromCharacter != null) {
+    updateFieldsFromCharacter(fromCharacter);
+  }
 
-  var deleteCharacter = new AnchorElement()
-      ..appendText('Delete character')
-      ..onClick.listen((_) => handleDeleteCharacter(character));
-
-  deleteCharacter.onClick.listen((_) =>
-      deleteCharacter.parent.parent.classes.remove('open'));
-
-  var characterLIs = [useCharacter, saveUnsaveCharacter, modifyCharacter, deleteCharacter]
-      .map((ButtonElement b) => new LIElement()..children.add(b));
-
-  var dropDown = new UListElement()
-      ..children.addAll(characterLIs)
-      ..classes.addAll(['f-dropdown'])
-      ..dataset['dropdown-content'] = ''
-      ..id = 'dropdown-${character.id}';
-
-  var dropDownButton = new ButtonElement()
-      ..classes.addAll(['small', 'expand', 'round', 'dropdown'])
-      ..dataset['dropdown'] = 'dropdown-${character.id}'
-      ..appendText('Actions');
-  return generateColumn()..children.addAll([dropDownButton, dropDown]);
 }
 
-DivElement generateColumnFromAttribute(Object attribute) =>
-    generateColumn()..appendText(attribute.toString());
+void generateUseCharacterModal(DiabolicalCharacter character) {
+  var useCharacterImport = (querySelector('#use-character-page')
+      as LinkElement).import;
+  var useCharacterTemplate = useCharacterImport.querySelector('#use-character');
+  DocumentFragment useCharacterForm = document.importNode(useCharacterTemplate.content, true);
 
-DivElement generateColumn() =>
-    new DivElement()..classes.addAll(['small-2', 'columns']);
+  var prefix = '#use-character';
+  useCharacterForm
+      ..querySelector('$prefix-name').text = '${character.name}'
+      ..querySelector('$prefix-gender-${character.gender.toLowerCase()}')
+          .classes.remove('hide')
+      ..querySelector('$prefix-avatar-${character.gender.toLowerCase()}')
+          .classes.remove('hide')
+      ..querySelector('$prefix-class').text = '${character.classType}'
+      ..querySelector('$prefix-level').text = '${character.level}'
+      ..querySelector('$prefix-money').text = '${character.money}';
 
-void setCreateModifyCharacterText(String headerText, String buttonText,
-                                  Function buttonCallback) {
-  querySelector('#create-modify-header').text = headerText;
-  querySelector('#create-modify-button')
-      ..text = buttonText
-      ..onClick.listen(buttonCallback);
+
+  var futures = ['head', 'body', 'arms', 'legs'].map((e) {
+    return DiabolicalApi.createRandomItem(character.level, e).then((item) {
+      var useCharacterItemTemplate =
+          useCharacterImport.querySelector('#use-character-item');
+      DocumentFragment useCharacterItem =
+          document.importNode(useCharacterItemTemplate.content, true);
+      item.toMap().forEach((key, val) {
+        var element = useCharacterItem.querySelector('.item-$key');
+        if (element != null) {
+          if (element is SpanElement) {
+            element.style.width = '$val%';
+          } else {
+            element.text = '$val';
+          }
+        }
+      });
+      querySelector('#item-$e')
+        .children..clear()..addAll(useCharacterItem.children);
+    });
+  });
+  Future.wait(futures).then((_) => '' );
+  querySelector('#use-character-modal')
+      .children..clear()..addAll(useCharacterForm.children);
+}
+
+void generateItemAccordion(DiabolicalItem item) {
 
 }
 
 /// [reinitializeFoundation] must be called after inserting this element.
-DivElement generateAlert(String cssClass, String text) {
-  var alertDiv = new DivElement()
-      ..classes.addAll(['alert-box', cssClass, 'temp'])
-      ..dataset['alert'] = ''
-      ..text = text;
+DocumentFragment generateAlert(String cssClass, String text) {
+  var alertTemplate = querySelector('#alert');
+  DocumentFragment alert = document.importNode(alertTemplate.content, true);
 
-  var closeButton = new ButtonElement()
-      ..classes.addAll(['close'])
-      ..setInnerHtml("&times;");
+  alert.querySelector('div')..classes.add(cssClass)..text = text;
 
-  alertDiv.append(closeButton);
-
-  return alertDiv;
+  return alert;
 }
 
 void clearAllTemp() => querySelectorAll('.temp').forEach((Element e) => e.remove());

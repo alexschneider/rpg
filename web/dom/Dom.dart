@@ -11,7 +11,6 @@ part 'Modals.dart';
 
 Set<int> savedCharacterIds() {
   var saved = window.localStorage['saved'];
-  print(saved);
   return saved != null && saved != ''?
          saved.split(r',').map(int.parse).toSet() :
          new Set<int>();

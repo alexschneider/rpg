@@ -9,7 +9,12 @@
     <script src="packages/rpg/foundation/bower_components/modernizr/modernizr.js"></script>
     <script type="application/dart" src="rpg.dart"></script>
     <script src="packages/browser/dart.js"></script>
+    <link id="create-edit-character-page" rel="import"
+          href="create-edit-character.html">
+    <link id="list-characters-page" rel="import" href="list-characters.html">
+    <link id="use-character-page" rel="import" href="use-character.html">
   </head>
+
   <body>
   <div class="row">
     <div class="small-6 small-offset-3 columns end">
@@ -59,114 +64,34 @@
     </div>
 
   <div id="create-modify-character" class="reveal-modal" data-reveal>
-    <h2 id='create-modify-header' class="text-center"></h2>
-    <div class="row">
-      <div class="small-12 small-centered columns">
-        <div class="row">
-          <div class="small-3 small-offset-1 columns">
-            <label for="character-name" class="right inline">
-              Character Name
-            </label>
-          </div>
-          <div class="small-6 columns end">
-            <input type="text" id="character-name"
-                   placeholder="Enter character name">
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-3 small-offset-1 columns">
-            <label for="character-gender" class="right">
-              Character Gender
-            </label>
-          </div>
-          <div class="small-6 columns end">
-            <input type="radio" name="character-gender" value="Male"
-                   id="character-gender-male">
-            <label for="character-gender-male">Male</label>
-            <input type="radio" name="character-gender" value="Female"
-                   id="character-gender-female">
-            <label for="character-gender-female">Female</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-3 small-offset-1 columns">
-            <label for="character-class" class="right inline">
-              Character Class
-            </label>
-          </div>
-          <div class="small-6 columns end">
-            <input type="text" id="character-class"
-                   placeholder="Enter character class">
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-3 small-offset-1 columns">
-            <label for="character-level" class="right inline">
-              Character Level
-            </label>
-          </div>
-          <div class="small-6 columns end">
-            <input type="number" id="character-level"
-                   placeholder="Enter character level">
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-3 small-offset-1 columns">
-            <label for="character-money" class="right inline">
-              Character Money
-            </label>
-          </div>
-          <div class="small-6 columns end">
-            <div class="row collapse">
-              <div class="small-1 columns">
-                <span class="prefix"><i class="fi-dollar"></i></span>
-              </div>
-              <div class="small-11 columns">
-                <input type="number" id="character-money"
-                       placeholder="Enter character money">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-offset-2 small-4 columns">
-            <button id="random-character"
-               class="button small expand round">
-              Generate Random
-            </button>
-          </div>
-          <div class="small-4 columns left">
-            <button id="create-modify-button" class="button small expand round">
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <a class="close-reveal-modal fi-x-circle"></a>
+    <!--
+      See create-edit-character.html to for the contents of this div.
+    -->
   </div>
 
   <div id="list-characters" class="reveal-modal" data-reveal>
     <!--
-      This modal will need to be populated by dart, since the content is
-      dynamic - that is, it only lives on the API servers. For reference, it
-      looks something like this (had we been using the mustache templating
-      engine:
-
-      {{#characters}}
-      <div class="row">
-        {{#character attributes}}
-        <div class="small-2 columns">
-          {{character info}}
-        </div>
-        {{/character attributes}}
-        </div class="small-2 columns">
-          <button class="button" href="#">Use character</button>
-        </div>
-      </div>
-      {{/characters}}
-      <a class="close-reveal-modal fi-x-circle"></a>
+      See list-characters.html for the contents of this div.
     -->
   </div>
+
+  <div id="use-character-modal" class="reveal-modal" data-reveal>
+    <!--
+      See use-characters.html for the contents of this div.
+    -->
+  </div>
+
+  <template id="alert">
+    <div class="alert-box">
+      <a href="#" class="close">&times;</a>
+    </div>
+    <script type="text/javascript">
+      $(document).foundation();
+    </script>
+  </template>
+
+  <button id="use-character" class="hide" data-reveal-id="use-character-modal">
+  </button>
 
   <script src="packages/rpg/foundation/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="packages/rpg/foundation/bower_components/foundation/js/foundation.min.js"></script>

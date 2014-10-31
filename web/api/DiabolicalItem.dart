@@ -15,4 +15,17 @@ class DiabolicalItem {
       mindamage   = itemMap['mindamage'],
       name        = itemMap['name'],
       slot        = itemMap['slot'];
+
+  Map<String, dynamic> toMap() => {
+    'absorption': absorption,
+    'atkspeed': atkspeed,
+    'blockchance': blockchance,
+    'critchance': critchance,
+    'defense': defense,
+    'level': level,
+    'maxdamage': maxdamage,
+    'mindamage': mindamage,
+    'name': name,
+    'slot': slot
+  };
 }
