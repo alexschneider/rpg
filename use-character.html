@@ -1,0 +1,197 @@
+<template id="use-character">
+  <div class="row">
+    <div id="character-avatar" class="small-4 columns">
+      <i id="use-character-avatar-female" class="fi-female avatar-symbol hide"></i>
+      <i id="use-character-avatar-male" class="fi-male avatar-symbol hide"></i>
+    </div>
+    <div class="small-8 columns">
+      <div class="row">
+        <div class="small-12 columns">
+          <h2 class="text-center">Character Attributes</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          Name:
+        </div>
+        <div class="small-8 columns">
+          <div id="use-character-name" class="panel">
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          Gender:
+        </div>
+        <div class="small-8 columns">
+          <div class="panel">
+            <i id="use-character-gender-female"
+               class="fi-female-symbol hide"></i>
+            <i id="use-character-gender-male"
+               class="fi-male-symbol hide"></i>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          Class:
+        </div>
+        <div class="small-8 columns">
+          <div id="use-character-class" class="panel">
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          Level:
+        </div>
+        <div class="small-8 columns">
+          <div id="use-character-level" class="panel">
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          Money:
+        </div>
+        <div class="small-8 columns">
+          <div id="use-character-money" class="panel">
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          Items:
+        </div>
+        <div class="small-8 columns">
+          <div>
+            <dl class="accordion" data-accordion>
+              <dd class="accordion-navigation">
+                <a href="#item-head">Head</a>
+                <div id="item-head" class="content">
+                  Loading...
+                </div>
+              </dd>
+              <dd class="accordion-navigation">
+                <a href="#item-body">Body</a>
+                <div id="item-body" class="content">
+                  Loading...
+                </div>
+              </dd>
+              <dd class="accordion-navigation">
+                <a href="#item-arms">Arms</a>
+                <div id="item-arms" class="content">
+                  Loading...
+                </div>
+              </dd>
+              <dd class="accordion-navigation">
+                <a href="#item-legs">Legs</a>
+                <div id="item-legs" class="content">
+                  Loading...
+                </div>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-6"></div>
+      </div>
+    </div>
+  </div>
+  <span class="close-reveal-modal fi-x-circle"></span>
+  <script type="text/javascript">
+    // Hack to ensure that foundation bindings properly
+    // occur when dynamic content is added.
+    $(document).foundation();
+  </script>
+</template>
+
+<template id="use-character-item">
+  <div class="row">
+    <div class="small-4 columns">
+      Level:
+    </div>
+    <div class="small-8 columns">
+      <div class="panel item-level"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-4 columns">
+      Attack Speed:
+    </div>
+    <div class="small-8 columns">
+      <div class="panel item-atkspeed"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-4 columns">
+      Absorption:
+    </div>
+    <div class="small-8 columns">
+      <div class="progress">
+        <span class="meter item-absorption"></span>
+        <!-- width: x% needs to be added at runtime-->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-4 columns">
+      Block Chance:
+    </div>
+    <div class="small-8 columns">
+      <div class="progress">
+        <span class="meter item-blockchance"></span>
+        <!-- width: x% needs to be added at runtime-->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-4 columns">
+      Critical Chance:
+    </div>
+    <div class="small-8 columns">
+      <div class="progress">
+        <span class="meter item-critchance"></span>
+        <!-- width: x% needs to be added at runtime-->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-4 columns">
+      Defense:
+    </div>
+    <div class="small-8 columns">
+      <div class="progress">
+        <span class="meter item-defense"></span>
+        <!-- width: x% needs to be added at runtime-->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-4 columns">
+      Minimum Damage:
+    </div>
+    <div class="small-8 columns">
+      <div class="progress">
+        <span class="meter item-mindamage"></span>
+        <!-- width: x% needs to be added at runtime-->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-4 columns">
+      Maximum Damage:
+    </div>
+    <div class="small-8 columns">
+      <div class="progress">
+        <span class="meter item-maxdamage"></span>
+        <!-- width: x% needs to be added at runtime-->
+      </div>
+    </div>
+  </div>
+</template>

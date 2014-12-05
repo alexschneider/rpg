@@ -1,0 +1,37 @@
+$fi-path: "../bower_components/foundation-icon-fonts";
+@import "settings";
+@import "foundation";
+@import "foundation-icons";
+
+
+.extra-top-margin-row {
+  @include grid-row();
+  margin-top: 2em;
+}
+
+.columns {
+  min-height: 1px;
+}
+
+table {
+  width: 100%;
+  tbody tr td, thead tr th{
+    @extend .text-center;
+  }
+}
+
+.gender-symbol {
+  font-size: 2rem;
+}
+
+.sort-up:after {
+  content: " \25B2"
+}
+
+.sort-down:after {
+  content: " \25BC";
+}
+
+.avatar-symbol {
+  font-size: 40rem;
+}
